@@ -1,0 +1,10 @@
+.existing-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.recovery-dropdown {
+    width: 350px;
+    height: 40px;
+}
