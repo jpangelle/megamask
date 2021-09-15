@@ -1,21 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import './Generate.css';
-import bip39 from 'bip39';
+import {ethers} from 'ethers';
 
 export default function Generate() {
-    const [seedPhrase, setSeedPhrase] = useState([]);
+    const [seedPhrase, setSeedPhrase] = useState('');
     const [walletAddress, setWalletAddress] = useState('');
 
-    const bip39 = require('bip39');
+    
 
 
     useEffect(() => {
-        const mnemonic = bip39.generateMnemonic()
-        const seedSync = bip39.mnemonicToSeedSync().toString('hex');
-        console.log(seedSync);
-        console.log(mnemonic)
-        setSeedPhrase(mnemonic);
-        setWalletAddress(seedSync);
+       const randomBytes = ethers.utils.randomBytes(32);
+       const mnemonic = ethers.utils.entropyToMnemonic(randomBytes);
+       const randomWallet = ethers.Wallet.fromMnemonic(mnemonic);
+       console.log(mnemonic)
+       console.log(randomWallet.address);
+       setSeedPhrase(mnemonic)
+       setWalletAddress(randomWallet.address)
+        
     }, [])
 
     return (
