@@ -1,10 +1,25 @@
 import React, { useState, useEffect } from "react";
 import "./Existing.css";
+import axios from 'axios';
+import {Link } from 'react-router-dom';
 
-export default function Existing() {
+
+type Props = {
+  setPrivateKey: (privateKey: string) => void;
+}
+
+
+
+
+export default function Existing({setPrivateKey}: Props) {
   const [recoveryProcess, setRecoveryProcess] = useState<string | undefined>();
+  const [seedPhrase, setSeedPhrase] = useState<string | undefined>()
+  const [account, setAccount] = useState([]);
+
+  
 
 
+ 
   useEffect(() => {
     setRecoveryProcess(undefined)
   }, [])
@@ -12,9 +27,18 @@ export default function Existing() {
 
     const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
       setRecoveryProcess(event.target.value)
+      
+    }
+
+    const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+      event.preventDefault();
+      setPrivateKey(event.target.value)
+     
     }
     
-    console.log(recoveryProcess)
+
+ 
+ 
 
 
   return (
@@ -34,10 +58,13 @@ export default function Existing() {
     </div> 
       ) : ( 
       <div className="recovery-key">
-      <input className="recovery-key"></input>
+      <input onChange={handleInput} className="recovery-key"></input>
+      <Link to='/homepage'  type="submit">Submit</Link>
       </div>
       )
+      
     }
+    
     </div>
   );
 }
