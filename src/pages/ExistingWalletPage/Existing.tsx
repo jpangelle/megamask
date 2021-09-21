@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Existing.css';
 
-export default function Existing() {
-  const [recoveryProcess, setRecoveryProcess] = useState<string | undefined>();
+type Props = {
+  setPrivateKey: (privateKey: string) => void;
+};
 
-  useEffect(() => {
-    setRecoveryProcess(undefined);
-  }, []);
+export default function Existing({ setPrivateKey }: Props) {
+  const [recoveryProcess, setRecoveryProcess] = useState('');
 
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setRecoveryProcess(event.target.value);
   };
 
-  console.log(recoveryProcess);
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setPrivateKey(event.target.value);
+  };
 
   return (
     <div className="existing-page">
@@ -35,7 +39,10 @@ export default function Existing() {
         </div>
       ) : (
         <div className="recovery-key">
-          <input className="recovery-key"></input>
+          <input onChange={handleInput} className="recovery-key"></input>
+          <Link to="/homepage" type="submit">
+            Submit
+          </Link>
         </div>
       )}
     </div>
