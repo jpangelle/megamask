@@ -1,3 +1,4 @@
+
 import React, {useState, useEffect} from 'react';
 import './HomePage.css';
 
@@ -15,4 +16,5 @@ export default function HomePage({privateKey}: Props) {
             <h1>{privateKey}</h1>
         </div>
     )
+
 }

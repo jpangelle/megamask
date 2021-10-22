@@ -19,6 +19,10 @@ export default function Existing({setPrivateKey}: Props) {
   
 
 
+export default function Existing({ setPrivateKey }: Props) {
+  const [recoveryProcess, setRecoveryProcess] = useState('');
+
+
  
   useEffect(() => {
     setRecoveryProcess(undefined)
@@ -37,18 +41,24 @@ export default function Existing({setPrivateKey}: Props) {
     }
     
 
- 
- 
-
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setPrivateKey(event.target.value);
+  };
 
   return (
     <div className="existing-page">
       <div className="dropdown-section">
-  
-        <select onChange={handleSelect} value={recoveryProcess} className="recovery-dropdown">
-          <option value="Select a Recovery Process" selected disabled>Select a Recovery Process</option>
-          <option  value="Seed Phrase">Seed Phrase</option>
-          <option   value="Private Key">Private Key</option>
+        <select
+          onChange={handleSelect}
+          value={recoveryProcess}
+          className="recovery-dropdown"
+        >
+          <option value="Select a Recovery Process" selected disabled>
+            Select a Recovery Process
+          </option>
+          <option value="Seed Phrase">Seed Phrase</option>
+          <option value="Private Key">Private Key</option>
         </select>
   
       </div>
@@ -65,6 +75,7 @@ export default function Existing({setPrivateKey}: Props) {
       
     }
     
+
     </div>
   );
 }

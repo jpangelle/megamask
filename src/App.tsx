@@ -1,3 +1,4 @@
+
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import axios from 'axios';
@@ -7,14 +8,17 @@ import GeneratePage from './pages/GenerateWalletPage/Generate';
 import ExistingPage from './pages/ExistingWalletPage/Existing';
 import HomePage from './pages/HomePage/HomePage';
 
+
 const Props = {
   setPrivateKey: 'string'
 }
+
 
 const etherscanAPI = process.env.REACT_APP_ETHERSCAN_API;
 
 function App() {
   const [account, setAccount] = useState([]);
+
   const [privateKey, setPrivateKey] = useState('')
 
 
@@ -23,11 +27,12 @@ function App() {
     .then(res => setAccount(res.data))
   }, [privateKey])
 
+
   return (
-    <>
     <Switch>
       <div className="App">
         <Link to="/">MurdaMask</Link>
+
         <Route exact path='/' render={() =>
         <SetupPage />
         }>
@@ -44,10 +49,10 @@ function App() {
            <HomePage privateKey={privateKey}/>
          }>
          </Route>
+
       </div>
     </Switch>
-    </>
-  )
+  );
 }
 
 export default App;

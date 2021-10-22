@@ -1,38 +1,37 @@
 .existing-page {
-    display: grid;
-    grid-template-rows: 150px 1fr;
-    justify-content: center;
-    align-items: center;
+  display: grid;
+  grid-template-rows: 150px 1fr;
+  justify-content: center;
+  align-items: center;
 }
 
 .dropdown-section {
-    grid-row: 1/2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    
+  grid-row: 1/2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .recovery-dropdown {
-    width: 350px;
-    height: 40px;
+  width: 350px;
+  height: 40px;
 }
 
 .recovery-text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-row: 2/3;
-    width:98%;
-    height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-row: 2/3;
+  width: 98%;
+  height: 120px;
 }
 
 .recovery-key {
-    grid-row: 2/3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 98%;
-    height: 30px;
+  grid-row: 2/3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 98%;
+  height: 30px;
 }
