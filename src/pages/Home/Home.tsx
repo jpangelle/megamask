@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import axios from 'axios';
+import BigNumber from 'bignumber.js';
 import './Home.css';
 
-const etherscanAPI = process.env.REACT_APP_ETHERSCAN_API;
+const { REACT_APP_INFURA_PROJECT_ID, REACT_APP_INFURA_PROJECT_SECRET } =
+  process.env;
 
 export default function Home() {
-  const [account, setAccount] = useState<any>({});
+  const [balance, setBalance] = useState('');
 
   useEffect(() => {
     const mnemonic = localStorage.getItem('murdamask-seed-phrase');
@@ -14,18 +15,26 @@ export default function Home() {
       const { address } = ethers.Wallet.fromMnemonic(mnemonic);
 
       (async () => {
-        const { data } = await axios.get(
-          `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${etherscanAPI}`,
-        );
+        const provider = ethers.getDefaultProvider('homestead', {
+          infura: {
+            projectId: REACT_APP_INFURA_PROJECT_ID,
+            projectSecret: REACT_APP_INFURA_PROJECT_SECRET,
+          },
+        });
+        const response = await provider.getBalance(address);
 
-        setAccount(data);
+        const formattedBalance = new BigNumber(response.toString())
+          .dividedBy(10 ** 18)
+          .toString();
+
+        setBalance(formattedBalance);
       })();
     }
   }, []);
 
   return (
     <div>
-      <h1>{account?.status}</h1>
+      <h1>{balance}</h1>
     </div>
   );
 }
