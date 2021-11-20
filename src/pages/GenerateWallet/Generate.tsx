@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import './Generate.css';
+import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
+import './Generate.css';
 
 export default function Generate() {
   const [seedPhrase, setSeedPhrase] = useState('');
@@ -9,11 +9,10 @@ export default function Generate() {
   useEffect(() => {
     const randomBytes = ethers.utils.randomBytes(32);
     const mnemonic = ethers.utils.entropyToMnemonic(randomBytes);
-    const randomWallet = ethers.Wallet.fromMnemonic(mnemonic);
-    console.log(mnemonic);
-    console.log(randomWallet.address);
+    const wallet = ethers.Wallet.fromMnemonic(mnemonic);
     setSeedPhrase(mnemonic);
-    setWalletAddress(randomWallet.address);
+    setWalletAddress(wallet.address);
+    localStorage.setItem('murdamask-seed-phrase', mnemonic);
   }, []);
 
   return (

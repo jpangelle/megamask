@@ -1,45 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Switch, Route, Link } from 'react-router-dom';
-import SetupPage from './pages/SetupPage/SetupPage';
-import GeneratePage from './pages/GenerateWalletPage/Generate';
-import ExistingPage from './pages/ExistingWalletPage/Existing';
-import HomePage from './pages/HomePage/HomePage';
+import { useEffect } from 'react';
+import {
+  Route,
+  Routes,
+  Link,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
+import Setup from './pages/Setup/Setup';
+import Generate from './pages/GenerateWallet/Generate';
+import Existing from './pages/ExistingWallet/Existing';
+import Home from './pages/Home/Home';
 import './App.css';
 
-const etherscanAPI = process.env.REACT_APP_ETHERSCAN_API;
-
 function App() {
-  const [account, setAccount] = useState([]);
-  const [privateKey, setPrivateKey] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    (async () => {
-      const { data } = await axios.get(
-        `http://api.etherscan.io/api?module=account&action=txlist&address=${privateKey}&startblock=0&endblock=99999999&sort=asc&apikey=${etherscanAPI}`,
-      );
-      setAccount(data);
-    })();
-  }, [privateKey]);
+    if (localStorage.getItem('murdamask-seed-phrase')) {
+      navigate('/');
+    } else {
+      if (location.pathname.includes('setup')) {
+        navigate(location.pathname);
+      } else {
+        navigate('setup');
+      }
+    }
+  }, [location.pathname, navigate]);
 
   return (
-    <Switch>
-      <div className="App">
-        <Link to="/">MurdaMask</Link>
-        <Route exact path="/" render={() => <SetupPage />} />
-        <Route exact path="/generate" render={() => <GeneratePage />} />
-        <Route
-          exact
-          path="/existing"
-          render={() => <ExistingPage setPrivateKey={setPrivateKey} />}
-        />
-        <Route
-          exact
-          path="/homepage"
-          render={() => <HomePage privateKey={privateKey} />}
-        />
-      </div>
-    </Switch>
+    <div className="App">
+      <Link to="/">MurdaMask</Link>
+      <Routes>
+        <Route path="setup">
+          <Route path="" element={<Setup />} />
+          <Route path="generate" element={<Generate />} />
+          <Route path="existing" element={<Existing />} />
+        </Route>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </div>
   );
 }
 
