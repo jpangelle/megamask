@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ethers } from 'ethers';
 import BigNumber from 'bignumber.js';
 import './Home.css';
@@ -7,6 +8,8 @@ const { REACT_APP_INFURA_PROJECT_ID, REACT_APP_INFURA_PROJECT_SECRET } =
   process.env;
 
 export default function Home() {
+  const navigate = useNavigate();
+
   const [balance, setBalance] = useState('');
 
   useEffect(() => {
@@ -15,7 +18,7 @@ export default function Home() {
       const { address } = ethers.Wallet.fromMnemonic(mnemonic);
 
       (async () => {
-        const provider = ethers.getDefaultProvider('homestead', {
+        const provider = new ethers.providers.InfuraProvider('ropsten', {
           infura: {
             projectId: REACT_APP_INFURA_PROJECT_ID,
             projectSecret: REACT_APP_INFURA_PROJECT_SECRET,
@@ -35,6 +38,7 @@ export default function Home() {
   return (
     <div>
       <h1>{balance}</h1>
+      <button onClick={() => navigate('transfer')}>Transfer</button>
     </div>
   );
 }
