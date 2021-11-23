@@ -36,9 +36,15 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div className="transfer-window">
       <h1>{balance}</h1>
-      <button onClick={() => navigate('transfer')}>Transfer</button>
+      <button
+        id="transfer-btn"
+        className="ring-4"
+        onClick={() => navigate('transfer')}
+      >
+        Transfer
+      </button>
     </div>
   );
 }

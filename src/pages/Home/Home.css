@@ -1,0 +1,13 @@
+.transfer-window {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+#transfer-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 100px;
+}
