@@ -5,13 +5,12 @@ import Existing from './pages/ExistingWallet/Existing';
 import Transfer from './pages/Transfer/Transfer';
 import Home from './pages/Home/Home';
 import AlienLogo from './assets/alien_logo.png';
-import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="h-full w-full">
       <Link to="/">
-        <img className="alien-logo" alt="" src={AlienLogo}></img>
+        <img src={AlienLogo} className="h-20" alt="alien" />
       </Link>
       <Routes>
         <Route path="setup">
