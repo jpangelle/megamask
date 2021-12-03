@@ -4,12 +4,14 @@ import Generate from './pages/GenerateWallet/Generate';
 import Existing from './pages/ExistingWallet/Existing';
 import Transfer from './pages/Transfer/Transfer';
 import Home from './pages/Home/Home';
-import './App.css';
+import AlienLogo from './assets/alien_logo.png';
 
 function App() {
   return (
-    <div className="App">
-      <Link to="/">MurdaMask</Link>
+    <div className="h-full w-full">
+      <Link to="/">
+        <img src={AlienLogo} className="h-20" alt="alien" />
+      </Link>
       <Routes>
         <Route path="setup">
           <Route path="" element={<Setup />} />

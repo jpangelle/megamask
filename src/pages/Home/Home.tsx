@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ethers } from 'ethers';
 import BigNumber from 'bignumber.js';
-import './Home.css';
 
 const { REACT_APP_INFURA_PROJECT_ID, REACT_APP_INFURA_PROJECT_SECRET } =
   process.env;
@@ -36,9 +35,14 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div className="flex align-middle justify-center">
       <h1>{balance}</h1>
-      <button onClick={() => navigate('transfer')}>Transfer</button>
+      <button
+        className="ring-4 w-24 bg-white"
+        onClick={() => navigate('transfer')}
+      >
+        Transfer
+      </button>
     </div>
   );
 }
